@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-admin-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-admin
+  template:
+    metadata:
+      labels:
+        app: web-admin
+    spec:
+      containers:
+        - name: web-admin
+          image: breezebd/web-admin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-admin-srv
+spec:
+  selector:
+    app: web-admin
+  ports:
+    - name: web-admin
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

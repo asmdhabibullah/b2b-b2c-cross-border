@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: governmentdb-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: governmentdb
+  template:
+    metadata:
+      labels:
+        app: governmentdb
+    spec:
+      containers:
+        - name: governmentdb
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: governmentdb-srv
+spec:
+  selector:
+    app: governmentdb
+  ports:
+    - name: governmentdb
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

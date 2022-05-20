@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transportation-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transportation
+  template:
+    metadata:
+      labels:
+        app: transportation
+    spec:
+      containers:
+        - name: transportation
+          image: breezebd/transportation
+          env:
+            - name: MONGO_URI
+              value: "mongodb://transportationdb-srv:27017/transportationdb"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: transportation-srv
+spec:
+  selector:
+    app: transportation
+  ports:
+    - name: transportation
+      protocol: TCP
+      port: 7000
+      targetPort: 7000

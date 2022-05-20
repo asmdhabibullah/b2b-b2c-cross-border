@@ -1,0 +1,67 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: www.micro.breezebd.com
+      http:
+        paths:
+          - path: /api/auth/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-srv
+                port:
+                  number: 4000
+          - path: /api/shop/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: shop-srv
+                port:
+                  number: 5000
+          - path: /api/orderd/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: orderd-srv
+                port:
+                  number: 6000
+          - path: /api/government/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: government-srv
+                port:
+                  number: 7000
+          - path: /api/transportation/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: transportation-srv
+                port:
+                  number: 8000
+    - host: www.ecom.breezebd.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web-ecom-srv
+                port:
+                  number: 2000
+    - host: www.admin.breezebd.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web-admin-srv
+                port:
+                  number: 3000

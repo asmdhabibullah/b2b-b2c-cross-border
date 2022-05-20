@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-ecom-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-ecom
+  template:
+    metadata:
+      labels:
+        app: web-ecom
+    spec:
+      containers:
+        - name: web-ecom
+          image: breezebd/web-ecom
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-ecom-srv
+spec:
+  selector:
+    app: web-ecom
+  ports:
+    - name: web-ecom
+      protocol: TCP
+      port: 2000
+      targetPort: 2000

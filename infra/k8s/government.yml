@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: government-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: government
+  template:
+    metadata:
+      labels:
+        app: government
+    spec:
+      containers:
+        - name: government
+          image: breezebd/government
+          env:
+            - name: MONGO_URI
+              value: "mongodb://governmentdb-srv:27017/governmentdb"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: government-srv
+spec:
+  selector:
+    app: government
+  ports:
+    - name: government
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

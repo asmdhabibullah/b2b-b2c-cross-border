@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderd-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orderd
+  template:
+    metadata:
+      labels:
+        app: orderd
+    spec:
+      containers:
+        - name: orderd
+          image: breezebd/orderd
+          env:
+            - name: MONGO_URI
+              value: "mongodb://orderddb-srv:27017/orderddb"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orderd-srv
+spec:
+  selector:
+    app: orderd
+  ports:
+    - name: orderd
+      protocol: TCP
+      port: 6000
+      targetPort: 6000

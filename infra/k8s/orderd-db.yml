@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderddb-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orderddb
+  template:
+    metadata:
+      labels:
+        app: orderddb
+    spec:
+      containers:
+        - name: orderddb
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orderddb-srv
+spec:
+  selector:
+    app: orderddb
+  ports:
+    - name: orderddb
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

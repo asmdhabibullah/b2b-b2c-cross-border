@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop
+  template:
+    metadata:
+      labels:
+        app: shop
+    spec:
+      containers:
+        - name: shop
+          image: breezebd/shop
+          env:
+            - name: MONGO_URI
+              value: "mongodb://shopdb-srv:27017/shopdb"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shop-srv
+spec:
+  selector:
+    app: shop
+  ports:
+    - name: shop
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

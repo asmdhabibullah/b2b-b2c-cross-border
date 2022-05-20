@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authdb-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authdb
+  template:
+    metadata:
+      labels:
+        app: authdb
+    spec:
+      containers:
+        - name: authdb
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authdb-srv
+spec:
+  selector:
+    app: authdb
+  ports:
+    - name: authdb
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

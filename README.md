@@ -7,7 +7,7 @@ The main purpose of creating this application is to use all the technologies tha
 Note that, I have used Microservice Architecture, Docker, Kubernetes, DigitalOcean, JavaScript, and TypeScript for application development.
 
 This application is publicly accessible through the GitHub repository.
-![image](https://user-images.githubusercontent.com/37944391/210749616-d47793c3-272c-460d-89c2-60a63c577638.png)
+![link](https://github.com/asmdhabibullah/b2b-b2c-cross-border)
 
 ### Used Technologies
 - Docker
@@ -17,3 +17,7 @@ This application is publicly accessible through the GitHub repository.
 - JavaScript
 - TypeScript
 - Microservice Architecture
+
+
+### Future target
+Connect multiple county with the through of application based on the Gov. law

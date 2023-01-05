@@ -1,4 +1,4 @@
-# B2B-B2C
+# B2B&B2C Cross Border E-Commerce Solution
 ## Trying to resolve e-commerce transportation issues
 
 ### Aim of the Application
